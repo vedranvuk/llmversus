@@ -1,60 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM Versus</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-    <div id="chat-container">
-        <div id="messages"></div>
-        <div id="input-container">
-            <input type="text" id="prompt-input" placeholder="Enter initial prompt...">
-            <button id="start-button">Start</button>
-            <button id="stop-button">Stop</button>
-            <button id="reset-button">Reset</button>
-        </div>
-        <details id="advanced-options-details">
-            <summary>Advanced Options</summary>
-            <div id="model-options-container">
-                <div class="model-options">
-                    <h3>Model 1</h3>
-                    <label for="model1-select">Select Model:</label>
-                    <select id="model1-select"></select>
-
-                    <label for="model1-temperature">Temperature:</label>
-                    <input type="number" id="model1-temperature" step="0.1" min="0" max="2" value="0.8">
-
-                    <label for="model1-top-p">Top P:</label>
-                    <input type="number" id="model1-top-p" step="0.1" min="0" max="1" value="0.9">
-
-                    <label for="model1-max-tokens">Max Tokens (Response Length Limit):</label>
-                    <input type="number" id="model1-max-tokens" step="1" min="-1" value="2048">
-
-                    <label for="model1-context-size">Context Size (num_ctx):</label>
-                    <input type="number" id="model1-context-size" step="1" min="0" value="16384">
-                </div>
-                <div class="model-options">
-                    <h3>Model 2</h3>
-                    <label for="model2-select">Select Model:</label>
-                    <select id="model2-select"></select>
-
-                    <label for="model2-temperature">Temperature:</label>
-                    <input type="number" id="model2-temperature" step="0.1" min="0" max="2" value="0.8">
-
-                    <label for="model2-top-p">Top P:</label>
-                    <input type="number" id="model2-top-p" step="0.1" min="0" max="1" value="0.9">
-
-                    <label for="model2-max-tokens">Max Tokens (Response Length Limit):</label>
-                    <input type="number" id="model2-max-tokens" step="1" min="-1" value="2048">
-
-                    <label for="model2-context-size">Context Size (num_ctx):</label>
-                    <input type="number" id="model2-context-size" step="1" min="0" value="16384">
-                </div>
-            </div>
-        </details>
+<body class="h-full w-full flex flex-col p-4">
+    <!-- Theme toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" class="p-2 rounded-sm cursor-pointer">
+            <span id="theme-light-icon" class="material-icons hidden">light_mode</span>
+            <span id="theme-dark-icon" class="material-icons hidden">dark_mode</span>
+        </button>
     </div>
-    <script src="/js/app.js"></script>
+
+    <!-- Main Chat Section -->
+    <section id="messages" class="flex-1 overflow-y-auto p-4 mb-4"></section>
+
+	<!-- Input Controls -->
+	<div id="input-container" class="flex gap-2 mb-4 flex-shrink-0">
+		<input type="text" id="prompt-input" placeholder="Enter initial prompt..." class="flex-1">
+		<button id="start-button" class="primary">Start</button>
+		<button id="stop-button" class="secondary">Stop</button>
+		<button id="reset-button" class="secondary">Reset</button>
+	</div>
+
+	<!-- Advanced Options -->
+	<details id="advanced-options-details" class="group flex-shrink-0">
+		<summary class="flex items-center justify-between cursor-pointer">
+			<span class="text-lg font-medium">Advanced Options</span>
+			<svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180" fill="none"
+				stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+			</svg>
+		</summary>
+		
+		<div id="model-options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+			<div class="model-options section">
+				<h3>Model 1</h3>
+				
+				<label for="model1-select">Select Model:</label>
+				<select id="model1-select"></select>
+
+				<label for="model1-temperature">Temperature:</label>
+				<input type="number" id="model1-temperature" step="0.1" min="0" max="2" value="0.8">
+
+				<label for="model1-top-p">Top P:</label>
+				<input type="number" id="model1-top-p" step="0.1" min="0" max="1" value="0.9">
+
+				<label for="model1-max-tokens">Max Tokens (Response Length Limit):</label>
+				<input type="number" id="model1-max-tokens" step="1" min="-1" value="2048">
+
+				<label for="model1-context-size">Context Size (num_ctx):</label>
+				<input type="number" id="model1-context-size" step="1" min="0" value="16384">
+			</div>
+			
+			<div class="model-options section">
+				<h3>Model 2</h3>
+				
+				<label for="model2-select">Select Model:</label>
+				<select id="model2-select"></select>
+
+				<label for="model2-temperature">Temperature:</label>
+				<input type="number" id="model2-temperature" step="0.1" min="0" max="2" value="0.8">
+
+				<label for="model2-top-p">Top P:</label>
+				<input type="number" id="model2-top-p" step="0.1" min="0" max="1" value="0.9">
+
+				<label for="model2-max-tokens">Max Tokens (Response Length Limit):</label>
+				<input type="number" id="model2-max-tokens" step="1" min="-1" value="2048">
+
+				<label for="model2-context-size">Context Size (num_ctx):</label>
+				<input type="number" id="model2-context-size" step="1" min="0" value="16384">
+			</div>
+		</div>
+	</details>
+
+    <script src="js/app.js"></script>
+    <script src="js/vibe.js"></script>
+    <script>
+        new VibeThemeManager({
+            lightIconId: 'theme-light-icon',
+            darkIconId: 'theme-dark-icon',
+            toggleBtnId: 'theme-toggle'
+        });
+    </script>
 </body>
 </html>

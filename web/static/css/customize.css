@@ -419,42 +419,4 @@
   .card-error {
     @apply bg-red-200 dark:bg-red-800 text-red-800 dark:text-red-200 rounded-xs p-2;
   }
-
-  /* Custom message styling for chat */
-  #messages {
-    @apply flex flex-col gap-4;
-  }
-
-  .message {
-    @apply max-w-3/4 px-4 py-3 rounded-2xl leading-relaxed;
-    word-wrap: break-word;
-  }
-
-  .model-1 {
-	@apply bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 self-end;
-  }
-
-  .model-2 {
-	@apply bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 self-start;
-  }
-
-  .message details {
-  }
-
-  .message summary {
-    @apply cursor-pointer outline-none text-sm text-gray-400 mb-2;
-  }
-
-  .thinking-content {
-    @apply italic text-neutral-500;
-  }
-
-  .reply-content {
-    @apply whitespace-pre-wrap;
-  }
-}
-
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }
