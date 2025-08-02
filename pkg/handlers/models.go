@@ -9,7 +9,7 @@ import (
 )
 
 func ModelsHandler(w http.ResponseWriter, r *http.Request) {
-	client := ollama.NewClient()
+	client := ollama.NewClientWithAddr(OllamaAddr())
 	models, err := client.GetModels()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

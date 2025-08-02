@@ -20,6 +20,12 @@ func NewClient() *OllamaClient {
 	}
 }
 
+func NewClientWithAddr(addr string) *OllamaClient {
+	return &OllamaClient{
+		Host: addr,
+	}
+}
+
 type ollamaRequest struct {
 	Model    string  `json:"model"`
 	Prompt   string  `json:"prompt"`

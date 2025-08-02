@@ -39,7 +39,7 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	client := ollama.NewClient()
+	client := ollama.NewClientWithAddr(OllamaAddr())
 
 	for {
 		_, msg, err := conn.ReadMessage()
