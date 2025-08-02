@@ -453,8 +453,3 @@
     @apply whitespace-pre-wrap;
   }
 }
-
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
