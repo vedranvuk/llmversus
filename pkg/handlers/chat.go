@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"regexp"
 	"sync"
 
 	"github.com/gorilla/websocket"
@@ -74,6 +75,9 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 func conversation(conn *websocket.Conn, client *ollama.OllamaClient, initialPrompt, model1 string, options1 map[string]interface{}, model2 string, options2 map[string]interface{}) {
 	currentPrompt := initialPrompt
 
+	// Regex to remove <think>...</think> blocks
+	thinkRe := regexp.MustCompile(`(?s)<think>.*?</think>`)
+
 	for {
 		mu.Lock()
 		stop := stopFlags[conn]
@@ -88,7 +92,8 @@ func conversation(conn *websocket.Conn, client *ollama.OllamaClient, initialProm
 			log.Printf("Error from model 1: %v", err)
 			return
 		}
-		currentPrompt = resp1
+		// Remove <think>...</think> from response before passing as prompt
+		currentPrompt = thinkRe.ReplaceAllString(resp1, "")
 
 		mu.Lock()
 		stop = stopFlags[conn]
@@ -103,6 +108,7 @@ func conversation(conn *websocket.Conn, client *ollama.OllamaClient, initialProm
 			log.Printf("Error from model 2: %v", err)
 			return
 		}
-		currentPrompt = resp2
+		// Remove <think>...</think> from response before passing as prompt
+		currentPrompt = thinkRe.ReplaceAllString(resp2, "")
 	}
 }

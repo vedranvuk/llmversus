@@ -16,7 +16,7 @@ type OllamaClient struct {
 
 func NewClient() *OllamaClient {
 	return &OllamaClient{
-		Host: "http://localhost:11434",
+		Host: "http://vedran-pc:11434",
 	}
 }
 

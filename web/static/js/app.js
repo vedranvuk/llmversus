@@ -154,14 +154,14 @@ startButton.addEventListener('click', () => {
         const options1 = {
             temperature: parseFloat(model1Temperature.value),
             top_p: parseFloat(model1TopP.value),
-            num_predict: parseInt(model1MaxTokens.value, 10), // Renamed to max_tokens
+            num_predict: parseInt(model1MaxTokens.value, 10) || 2048, // Default to 2048 if empty/invalid
             num_ctx: parseInt(model1ContextSize.value, 10),
         };
 
         const options2 = {
             temperature: parseFloat(model2Temperature.value),
             top_p: parseFloat(model2TopP.value),
-            num_predict: parseInt(model2MaxTokens.value, 10), // Renamed to max_tokens
+            num_predict: parseInt(model2MaxTokens.value, 10) || 2048, // Default to 2048 if empty/invalid
             num_ctx: parseInt(model2ContextSize.value, 10),
         };
 
