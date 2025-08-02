@@ -145,6 +145,14 @@ async function fetchModels() {
     }
 }
 
+// Enable Enter key to trigger Start
+promptInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !promptInput.disabled) {
+        e.preventDefault();
+        startButton.click();
+    }
+});
+
 startButton.addEventListener('click', () => {
     if (ws && ws.readyState === WebSocket.OPEN) {
         const prompt = promptInput.value;
@@ -178,6 +186,7 @@ startButton.addEventListener('click', () => {
                 action: 'start'
             }));
             promptInput.value = '';
+            promptInput.disabled = true; // Disable input when chat starts
         }
     } else {
         console.log('WebSocket is not connected.');
@@ -188,6 +197,7 @@ stopButton.addEventListener('click', () => {
     if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({ action: 'stop' }));
     }
+    promptInput.disabled = false; // Enable input when stopped
 });
 
 resetButton.addEventListener('click', () => {
@@ -195,6 +205,7 @@ resetButton.addEventListener('click', () => {
     if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({ action: 'stop' }));
     }
+    promptInput.disabled = false; // Enable input on reset
 });
 
 fetchModels();
