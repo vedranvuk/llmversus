@@ -16,6 +16,19 @@ const model2ContextSize = document.getElementById('model2-context-size');
 
 let ws;
 
+function scrollToBottom() {
+    // Use a small delay to ensure DOM updates are complete
+    setTimeout(() => {
+        const mainContainer = document.querySelector('main');
+        if (mainContainer) {
+            const oldScrollTop = mainContainer.scrollTop;
+            const scrollHeight = mainContainer.scrollHeight;
+            mainContainer.scrollTop = scrollHeight;
+            console.log(`Scrolling: oldScrollTop=${oldScrollTop}, scrollHeight=${scrollHeight}, newScrollTop=${mainContainer.scrollTop}`);
+        }
+    }, 10);
+}
+
 function connect() {
     ws = new WebSocket(`ws://${window.location.host}/chat`);
 
@@ -79,7 +92,8 @@ function connect() {
                 }
             }
         }
-        messages.scrollTop = messages.scrollHeight;
+        // Auto-scroll to the bottom - scroll the main container, not the messages div
+        scrollToBottom();
     };
 
     ws.onclose = () => {
@@ -122,6 +136,9 @@ function appendContent(messageElement, type, text) {
         }
         replyDiv.textContent += text;
     }
+    
+    // Auto-scroll to the bottom after appending content
+    scrollToBottom();
 }
 
 
@@ -210,3 +227,10 @@ resetButton.addEventListener('click', () => {
 
 fetchModels();
 connect();
+
+// Debug: Add scroll event listener
+document.querySelector('main').addEventListener('scroll', (e) => {
+    const container = e.target;
+    const isAtBottom = container.scrollTop >= container.scrollHeight - container.clientHeight - 5;
+    console.log(`Scroll event: scrollTop=${container.scrollTop}, scrollHeight=${container.scrollHeight}, clientHeight=${container.clientHeight}, isAtBottom=${isAtBottom}`);
+});
