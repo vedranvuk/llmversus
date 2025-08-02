@@ -450,6 +450,132 @@
   }
 
   .reply-content {
-    @apply whitespace-pre-wrap;
+    /* Remove whitespace-pre-wrap to allow HTML formatting */
+  }
+
+  /* Styling for markdown elements within messages */
+  .message .reply-content h1,
+  .message .reply-content h2,
+  .message .reply-content h3,
+  .message .reply-content h4,
+  .message .reply-content h5,
+  .message .reply-content h6 {
+    @apply font-bold mt-4 mb-2 first:mt-0;
+  }
+
+  .message .reply-content h1 { @apply text-xl; }
+  .message .reply-content h2 { @apply text-lg; }
+  .message .reply-content h3 { @apply text-base font-semibold; }
+  .message .reply-content h4,
+  .message .reply-content h5,
+  .message .reply-content h6 { @apply text-sm font-semibold; }
+
+  .message .reply-content p {
+    @apply mb-3 last:mb-0;
+  }
+
+  .message .reply-content pre {
+    @apply my-3 p-3 rounded-md overflow-x-auto;
+    background-color: var(--bg-code);
+    color: var(--text-code);
+  }
+
+  .message .reply-content code {
+    @apply px-1 py-0.5 rounded text-sm;
+    background-color: var(--bg-code);
+    color: var(--text-code);
+  }
+
+  .message .reply-content pre code {
+    @apply p-0 bg-transparent;
+    color: inherit;
+  }
+
+  .message .reply-content ul,
+  .message .reply-content ol {
+    @apply my-2 ml-4;
+  }
+
+  .message .reply-content li {
+    @apply mb-1;
+  }
+
+  .message .reply-content hr {
+    @apply my-4 border-neutral-300 dark:border-neutral-600;
+  }
+
+  .message .reply-content strong {
+    @apply font-semibold;
+  }
+
+  .message .reply-content em {
+    @apply italic;
+  }
+
+  .message .reply-content a {
+    @apply text-blue-500 hover:text-blue-400 underline;
+  }
+
+  /* Same styling for thinking content */
+  .message .thinking-content h1,
+  .message .thinking-content h2,
+  .message .thinking-content h3,
+  .message .thinking-content h4,
+  .message .thinking-content h5,
+  .message .thinking-content h6 {
+    @apply font-bold mt-4 mb-2 first:mt-0;
+  }
+
+  .message .thinking-content h1 { @apply text-xl; }
+  .message .thinking-content h2 { @apply text-lg; }
+  .message .thinking-content h3 { @apply text-base font-semibold; }
+  .message .thinking-content h4,
+  .message .thinking-content h5,
+  .message .thinking-content h6 { @apply text-sm font-semibold; }
+
+  .message .thinking-content p {
+    @apply mb-3 last:mb-0;
+  }
+
+  .message .thinking-content pre {
+    @apply my-3 p-3 rounded-md overflow-x-auto;
+    background-color: var(--bg-code);
+    color: var(--text-code);
+  }
+
+  .message .thinking-content code {
+    @apply px-1 py-0.5 rounded text-sm;
+    background-color: var(--bg-code);
+    color: var(--text-code);
+  }
+
+  .message .thinking-content pre code {
+    @apply p-0 bg-transparent;
+    color: inherit;
+  }
+
+  .message .thinking-content ul,
+  .message .thinking-content ol {
+    @apply my-2 ml-4;
+  }
+
+  .message .thinking-content li {
+    @apply mb-1;
+  }
+
+  .message .thinking-content hr {
+    @apply my-4 border-neutral-300 dark:border-neutral-600;
+  }
+
+  .message .thinking-content strong {
+    @apply font-semibold;
+  }
+
+  .message .thinking-content em {
+    @apply italic;
+  }
+
+  .message .thinking-content a {
+    @apply text-blue-500 hover:text-blue-400 underline;
   }
 }
